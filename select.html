@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Select2</title>
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+    <style>
+    .custom-file-preview {
+        display: none;
+        max-width: 100%;
+        height: auto;
+    }
+    .thumbnail-container {
+        display: flex;
+        align-items: center;
+    }
+    .thumbnail {
+        width: 160px;
+        height: auto;
+        margin-right: 10px;
+    }
+    .thumbnail-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .thumbnail-name,
+    .thumbnail-size {
+        margin: 0;
+    }
+    .thumbnail-name {
+        font-weight: bold;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .thumbnail-size {
+        color: #666;
+    }
+    .clear-button {
+        display: none; /* Hide the clear button initially */
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <form id="newsAndMediaForm">
+        <div class="form-group">
+            <label>News Publisher</label>
+            <select class="form-control select2" style="width: 100%;">
+                <option selected="selected">Alabama</option>
+                <option>Alaska</option>
+                <option>California</option>
+                <option>Delaware</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Washington</option>
+            </select>
+        </div>
+    </form>
+    <div id="thumbnailContainer">
+        <div class="thumbnail-container">
+            <img class="thumbnail col-4" id="thumbnailImage" src="blob:http://localhost/618b467d-3ee3-418f-a959-0bb1b26d50c8">
+            <div class="thumbnail-details col-6">
+                <div class="thumbnail-name" id="thumbnailName">summer_traffic_photo_amran_hossain.jpg</div>
+                <p class="thumbnail-size" id="thumbnailSize">530.95 KB</p>
+            </div>
+            <button class="clear-button btn btn-danger col-3" onclick="clearFileInput()" style="display: block;"><i class="fas fa-times"></i> Clear</button>
+        </div>
+    </div>
+</div>
+
+<!-- Include Select2 JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+
+<!-- Initialize Select2 -->
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+
+</body>
+</html>

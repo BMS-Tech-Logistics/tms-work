@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Selection</title>
+    <!-- Include Bootstrap CSS for Select2 theme compatibility -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Include Select2 Bootstrap4 Theme -->
+    <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" rel="stylesheet">
+    <style>
+        .select2-container--bootstrap4 .select2-selection--single {
+            height: calc(2.25rem + 2px);
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="form-group">
+        <label for="category">Vehicle Category *</label>
+        <select id="category" class="select4 form-control" name="category" required>
+            <option value=""></option>
+            <option value="Truck">Truck</option>
+            <option value="Pickup">Pickup</option>
+            <option value="Covered Van">Covered Van</option>
+            <option value="Tailor">Tailor</option>
+            <option value="Freezer Van">Freezer Van</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="size">Vehicle Size/Capacity *</label>
+        <select id="size" class="select4 form-control" name="size" required disabled>
+            <option value=""></option>
+            <!-- Truck Sizes -->
+            <option value="14 Feet" data-category="Truck">14 Feet</option>
+            <option value="16 Feet" data-category="Truck">16 Feet</option>
+            <option value="18 Feet" data-category="Truck">18 Feet</option>
+            <option value="20 Feet" data-category="Truck">20 Feet</option>
+            <option value="23 Feet" data-category="Truck">23 Feet</option>
+
+            <!-- Pickup Sizes -->
+            <option value="7 Feet" data-category="Pickup">7 Feet</option>
+            <option value="9 Feet" data-category="Pickup">9 Feet</option>
+            <option value="12 Feet" data-category="Pickup">12 Feet</option>
+
+            <!-- Covered Van Sizes -->
+            <option value="7 Feet" data-category="Covered Van">7 Feet</option>
+            <option value="9 Feet" data-category="Covered Van">9 Feet</option>
+            <option value="12 Feet" data-category="Covered Van">12 Feet</option>
+            <option value="14 Feet" data-category="Covered Van">14 Feet</option>
+            <option value="16 Feet" data-category="Covered Van">16 Feet</option>
+            <option value="18 Feet" data-category="Covered Van">18 Feet</option>
+            <option value="20 Feet" data-category="Covered Van">20 Feet</option>
+            <option value="23 Feet" data-category="Covered Van">23 Feet</option>
+
+            <!-- Other categories sizes can be added similarly -->
+        </select>
+    </div>
+</div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include Select2 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 with Bootstrap4 theme
+        $('.select4').select2({
+            placeholder: 'Select an option',
+            theme: 'bootstrap4',
+            tags: false, // Set to false since tags aren't used here
+            allowClear: true
+        });
+
+        // Store all size options
+        var allSizeOptions = $('#size option');
+
+        // Function to update size dropdown
+        function updateSizeDropdown() {
+            var selectedCategory = $('#category').val();
+            $('#size').html('');
+            var filteredOptions = allSizeOptions.filter(function() {
+                var category = $(this).data('category');
+                return $(this).val() === "" || category === selectedCategory;
+            });
+            $('#size').append(filteredOptions).trigger('change.select2');
+            $('#size').val(null).trigger('change');
+        }
+
+        // Enable or disable size dropdown based on category selection
+        $('#category').change(function() {
+            if ($(this).val() === "") {
+                $('#size').prop('disabled', true);
+            } else {
+                $('#size').prop('disabled', false);
+                updateSizeDropdown();
+            }
+        });
+
+        // Disable size dropdown on page load
+        $('#size').prop('disabled', true);
+    });
+</script>
+</body>
+</html>
